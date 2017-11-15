@@ -6,7 +6,7 @@ syslog_slice.py -- by Daniel Roberson @dmfroberson October/2017
 TODO:
   - implement cli flags outlined in argparse
   - color
-  - resolve hosts
+  - remove quotes from resolved hosts --resolve flag
   - log file
   - ipv6
   - MAC addresses?
@@ -41,6 +41,7 @@ class Settings(object):
         "numentries" : 0,
         "minutes" : 0,
         "daemonize" : False,
+        "resolve" : False,
     }
 
     __settings = [
@@ -51,6 +52,7 @@ class Settings(object):
         "numentries",
         "minutes",
         "daemonize",
+        "resolve",
     ]
 
     src_addresses = []
@@ -306,6 +308,22 @@ def should_i_print_this(src, dst, severity, facility, message):
     return result
 
 
+def resolve_ip(ip_address):
+    """ resolve_io() -- Attempts to resolve an IP address to hostname.
+
+    Args:
+        ip_address (str) - IP address. Ex: 192.168.1.1
+
+    Returns:
+        Resolved hostname on success.
+        Original IP address otherwise
+    """
+    try:
+        hostname = socket.gethostbyaddr(ip_address)
+        return repr(hostname[0])
+    except Exception:
+        return ip_address
+
 
 def parse_syslog(pkt):
     """ parse_syslog() -- Parse syslog packets passed from Scapy
@@ -335,6 +353,11 @@ def parse_syslog(pkt):
     except IndexError:
         source_ip = "127.0.0.1"
         dest_ip = "127.0.0.1"
+
+    # Resolve IP addresses?
+    if Settings.get("resolve") is True:
+        source_ip = resolve_ip(source_ip)
+        dest_ip = resolve_ip(dest_ip)
 
     # Determine if this is a syslog packet
     try:
@@ -394,6 +417,12 @@ def parse_cli():
                         "--facility",
                         required=False,
                         help="Filter by log level. \"list\" shows options")
+    parser.add_argument("-r",
+                        "--resolve",
+                        required=False,
+                        default=False,
+                        action="store_true",
+                        help="Resolve IP addresses")
     parser.add_argument("-i",
                         "--inverse",
                         required=False,
@@ -404,6 +433,9 @@ def parse_cli():
 
     # Inverse setting
     Settings.set("inverse", args.inverse)
+
+    # Resolve IP addresses setting
+    Settings.set("resolve", args.resolve)
 
     # Add source networks
     try:
