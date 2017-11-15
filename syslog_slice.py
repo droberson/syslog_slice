@@ -298,9 +298,9 @@ def parse_syslog(pkt):
         # Doesn't match <prival>message format. Probably not a syslog message.
         print("%s %s %s -> %s --- MALFORMED SYSLOG PACKET ---" %
               (time.time(),
-              protocol,
-              source_ip,
-              dest_ip))
+               protocol,
+               source_ip,
+               dest_ip))
         return
 
     # Calulate facility and severity from prival
