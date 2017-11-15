@@ -186,11 +186,11 @@ def get_syslog_severity(severity):
     """ get_syslog_severity() -- Get human-readable syslog severity name
 
     Args (required):
-        severity (int) - Severity number
+        severity (int) - Severity number.
 
     Returns:
-        Name of severity upon success
-        "UNKNOWN" on failure
+        Name of severity upon success.
+        "UNKNOWN" on failure.
     """
     severities = (
         (0, "EMERGENCY"),
@@ -210,14 +210,14 @@ def get_syslog_severity(severity):
 
 
 def get_syslog_facility(facility):
-    """ get_syslog_facility() -- Get human-readable syslog facility name
+    """ get_syslog_facility() -- Get human-readable syslog facility name.
 
     Args (required):
-        facility (int) - Facility number
+        facility (int) - Facility number.
 
     Returns:
-        Name of facility upon success
-        "UNKNOWN" on failure
+        Name of facility upon success.
+        "UNKNOWN" on failure.
     """
     facilities = (
         (0, "KERNEL"),
@@ -253,6 +253,19 @@ def get_syslog_facility(facility):
 
 
 def should_i_print_this(src, dst, severity, facility, message):
+    """ should_i_print_this() -- Determine if a packet should be printed or not.
+
+    Args:
+        src (str)      - Source IP address.
+        dst (str)      - Destination IP address. 
+        severity (int) - Syslog facility.
+        facility (int) - Syslog facility.
+        message (str)  - Contents of syslog message.
+
+    Returns:
+        True if packet matches output criteria.
+        False if packet does not match output criteria.
+    """
     srcaddr = ip_to_long(src)
     dstaddr = ip_to_long(dst)
 
