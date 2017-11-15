@@ -172,6 +172,14 @@ class Settings(object):
 
 
 def ip_to_long(address):
+    """ ip_to_long() -- Convert IP address to unsigned long.
+
+    Args:
+        address(str) - IP address. Ex: "127.0.0.1".
+
+    Returns:
+        IP address represented as a long.
+    """
     return struct.unpack("!L", socket.inet_aton(address))[0]
 
 
