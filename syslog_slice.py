@@ -132,6 +132,14 @@ class Settings(object):
 
     @staticmethod
     def add_destination(destination):
+        """ Settings.add_destination -- Add a destination address or network to
+                                     -- filter list.
+        Args:
+            source (str) - IP address or network in CIDR notation.
+
+        Returns:
+            Nothing.
+        """
         if "/" not in destination:
             # Use /32 to match specific IP address
             destination += "/32"
