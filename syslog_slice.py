@@ -6,6 +6,7 @@ syslog_slice.py -- by Daniel Roberson @dmfroberson October/2017
 TODO:
   - implement cli flags outlined in argparse
   - color
+  - resolve hosts
   - log file
   - ipv6
   - MAC addresses?
