@@ -184,6 +184,14 @@ def ip_to_long(address):
 
 
 def build_netmask(bits):
+    """ build_netmask() -- Returns netmask based on CIDR number.
+
+    Args:
+        bits (int) - Number 0 - 32 for netmask. Ex: 192.168.0.0/24 "24"
+
+    Returns:
+        Netmask. Ex: 24: 11111111111111111111111100000000 -> 0xwhatverthatis
+    """
     if bits == 0:
         return 0
 
