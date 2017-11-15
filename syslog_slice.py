@@ -90,6 +90,15 @@ class Settings(object):
 
     @staticmethod
     def add_source(source):
+        """ Settings.add_source() -- Add a source address or network to filter
+                                  -- list.
+
+        Args:
+            source (str) - IP address or network in CIDR notation.
+
+        Returns:
+            Nothing.
+        """
         if "/" not in source:
             # Use /32 to match specific IP address
             source += "/32"
