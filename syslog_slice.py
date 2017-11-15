@@ -385,12 +385,12 @@ if __name__ == "__main__":
     args = parse_cli()
 
     # Start the sniffer..
-    print("[+] Starting the sniffer.")
+    print "[+] Starting the sniffer."
     try:
         sniff(filter="port 514", prn=parse_syslog)
     except socket.error:
-        print("[-] Unable to open socket. Are you root?")
-        print("[-] Exiting.")
+        print "[-] Unable to open socket. Are you root?"
+        print "[-] Exiting."
         exit(os.EX_USAGE)
 
     # Not reached
