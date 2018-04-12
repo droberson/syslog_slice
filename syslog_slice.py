@@ -87,7 +87,7 @@ class Settings(object):
         if name in Settings.__settings:
             Settings.__config[name] = value
         else:
-            raise NameError("Not a valid setting for set() method: %s" * name)
+            raise NameError("Not a valid setting for set() method: %s" % name)
 
 
     @staticmethod
